@@ -1,0 +1,22 @@
+<template>
+    <app-layout />
+</template>
+
+<script setup lang="ts">
+import AppLayout from './components/Layout/AppLayout.vue'
+</script>
+
+<style>
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+</style>
