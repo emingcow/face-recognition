@@ -368,7 +368,7 @@ onUnmounted(() => {
     stopCamera()
 })
 
-// 修改组件挂载函数，自动开启摄像头
+// ��改组件挂载函数，自动开启摄像头
 onMounted(async () => {
     try {
         await initFaceDetector()
@@ -628,6 +628,7 @@ const resetUpload = () => {
     height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .recognition-container {

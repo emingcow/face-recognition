@@ -53,8 +53,99 @@
         <div class="main-content">
             <el-card class="main-card">
                 <div class="register-container">
+
+                    <div class="right-section">
+                        <!-- 个人信息表单 -->
+                        <div class="form-section">
+                            <div class="step-hint">
+                                <el-tag type="primary" effect="plain">
+                                    <el-icon><InfoFilled /></el-icon>
+                                    第一步：请输入个人信息
+                                </el-tag>
+                            </div>
+
+                            <div class="form-header">
+                                <h2>个人信息</h2>
+                                <el-progress type="circle" :percentage="formProgress" :width="40"></el-progress>
+                            </div>
+
+                            <el-form 
+                                :model="registerForm" 
+                                :rules="formRules" 
+                                ref="formRef" 
+                                label-position="top"
+                            >
+                                <el-form-item 
+                                    label="姓名" 
+                                    prop="name" 
+                                    required
+                                >
+                                    <el-input 
+                                        v-model="registerForm.name" 
+                                        placeholder="请输入姓名"
+                                        @input="updateFormProgress"
+                                    >
+                                        <template #prefix>
+                                            <el-icon><User /></el-icon>
+                                        </template>
+                                    </el-input>
+                                </el-form-item>
+                                
+                                <el-form-item 
+                                    label="工号/学号" 
+                                    prop="id" 
+                                    required
+                                >
+                                    <el-input 
+                                        v-model="registerForm.id" 
+                                        placeholder="请输入工号/学号"
+                                        @input="updateFormProgress"
+                                    >
+                                        <template #prefix>
+                                            <el-icon><Document /></el-icon>
+                                        </template>
+                                    </el-input>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+
+                        <!-- 最近录入记录 -->
+                        <div class="recent-records">
+                            <div class="section-header">
+                                <h3>最近录入</h3>
+                                <el-button link type="primary" @click="refreshRecords">
+                                    <el-icon>
+                                        <Refresh />
+                                    </el-icon>
+                                </el-button>
+                            </div>
+                            <el-scrollbar height="150px">
+                                <div class="recent-list">
+                                    <div v-for="record in recentRecords" :key="record.id"
+                                        class="recent-item animate__animated animate__fadeInRight"
+                                        :style="{ animationDelay: `${record.index * 0.1}s` }">
+                                        <el-avatar :size="32" :src="record.avatar"></el-avatar>
+                                        <div class="record-info">
+                                            <div class="record-name">{{ record.name }}</div>
+                                            <div class="record-time">{{ record.time }}</div>
+                                        </div>
+                                        <el-tag size="small" type="success">已录入</el-tag>
+                                    </div>
+                                </div>
+                            </el-scrollbar>
+                        </div>
+                    </div>
+
+
                     <!-- 左侧摄像头区域 -->
                     <div class="camera-section">
+                        <div class="step-hint img_upload">
+                            <el-tag type="success" effect="plain">
+                                <el-icon><Camera /></el-icon>
+                                第二步：请上传照片
+                            </el-tag>
+                        </div>
+
                         <div class="camera-wrapper">
                             <video ref="videoRef" :class="{ 'video-active': isVideoActive }" autoplay></video>
                             <canvas ref="canvasRef" style="display: none;"></canvas>
@@ -113,64 +204,7 @@
                     </div>
 
                     <!-- 右侧内容区域 -->
-                    <div class="right-section">
-                        <!-- 个人信息表单 -->
-                        <div class="form-section">
-                            <div class="form-header">
-                                <h2>个人信息</h2>
-                                <el-progress type="circle" :percentage="formProgress" :width="40"></el-progress>
-                            </div>
-
-                            <el-form :model="registerForm" label-position="top">
-                                <el-form-item label="姓名">
-                                    <el-input v-model="registerForm.name" placeholder="请输入姓名"
-                                        @input="updateFormProgress">
-                                        <template #prefix>
-                                            <el-icon>
-                                                <User />
-                                            </el-icon>
-                                        </template>
-                                    </el-input>
-                                </el-form-item>
-                                <el-form-item label="工号/学号">
-                                    <el-input v-model="registerForm.id" placeholder="请输入工号/学号"
-                                        @input="updateFormProgress">
-                                        <template #prefix>
-                                            <el-icon>
-                                                <Document />
-                                            </el-icon>
-                                        </template>
-                                    </el-input>
-                                </el-form-item>
-                            </el-form>
-                        </div>
-
-                        <!-- 最近录入记录 -->
-                        <div class="recent-records">
-                            <div class="section-header">
-                                <h3>最近录入</h3>
-                                <el-button link type="primary" @click="refreshRecords">
-                                    <el-icon>
-                                        <Refresh />
-                                    </el-icon>
-                                </el-button>
-                            </div>
-                            <el-scrollbar height="150px">
-                                <div class="recent-list">
-                                    <div v-for="record in recentRecords" :key="record.id"
-                                        class="recent-item animate__animated animate__fadeInRight"
-                                        :style="{ animationDelay: `${record.index * 0.1}s` }">
-                                        <el-avatar :size="32" :src="record.avatar"></el-avatar>
-                                        <div class="record-info">
-                                            <div class="record-name">{{ record.name }}</div>
-                                            <div class="record-time">{{ record.time }}</div>
-                                        </div>
-                                        <el-tag size="small" type="success">已录入</el-tag>
-                                    </div>
-                                </div>
-                            </el-scrollbar>
-                        </div>
-                    </div>
+                    
                 </div>
             </el-card>
         </div>
@@ -202,7 +236,9 @@ import {
     Plus,
     DataLine,
     Refresh,
-    CircleCheckFilled
+    CircleCheckFilled,
+    InfoFilled,
+    Camera
 } from '@element-plus/icons-vue'
 import axios from 'axios'
 
@@ -234,6 +270,21 @@ const recentRecords = ref([
     },
     // ... 更多记录
 ])
+
+// 添加表单引用
+const formRef = ref()
+
+// 添加表单验证规则
+const formRules = {
+    name: [
+        { required: true, message: '请输入姓名', trigger: 'blur' },
+        { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+    ],
+    id: [
+        { required: true, message: '请输入工号/学号', trigger: 'blur' },
+        { min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur' }
+    ]
+}
 
 // 文件上传处理
 const handleFileChange = (uploadFile: any) => {
@@ -336,6 +387,14 @@ onUnmounted(() => {
 
 // 注册处理
 const handleRegister = async () => {
+    // 先验证表单
+    await formRef.value.validate((valid: boolean) => {
+        if (!valid) {
+            ElMessage.warning('请填写完整的个人信息')
+            return false
+        }
+    })
+
     loading.value = true
     try {
         if (!selectedFile.value && !isVideoActive.value) {
@@ -401,23 +460,23 @@ const handleRegister = async () => {
 </script>
 
 <style scoped>
-.face-register {
-    padding: 20px;
-    height: 10vh;
+
+.img_upload {
+    margin-top: 12px;
 }
 
 .register-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 24px;
-    padding: 24px;
-    height: calc(55vh);
+    gap: 12px;
+    padding: 12px;
+    height: calc(64vh);
 }
 
 .camera-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     height: 100%;
 }
 
@@ -494,7 +553,7 @@ const handleRegister = async () => {
 
 .form-section {
     flex: 0.7;
-    min-height: 200px;
+    min-height: 250px;
     padding: 12px;
     background: #fff;
     border-radius: 8px;
@@ -538,7 +597,7 @@ const handleRegister = async () => {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .stat-icon {
@@ -741,5 +800,25 @@ const handleRegister = async () => {
     margin: 0;
     font-size: 16px;
     color: #303133;
+}
+
+.step-hint {
+    margin-bottom: 10px;
+}
+
+.step-hint .el-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.form-section {
+    position: relative;
+}
+
+.camera-section {
+    position: relative;
 }
 </style>

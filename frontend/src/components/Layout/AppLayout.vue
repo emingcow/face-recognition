@@ -53,7 +53,8 @@ import {
     Monitor,
     QuestionFilled,
     User,
-    Search
+    Search,
+    Setting
 } from '@element-plus/icons-vue'
 
 const route = useRoute()

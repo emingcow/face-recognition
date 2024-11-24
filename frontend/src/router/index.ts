@@ -3,6 +3,7 @@ import FaceRegister from '../views/FaceRegister.vue'
 import FaceRecognition from '../views/FaceRecognition.vue'
 import SecurityMonitor from '../views/SecurityMonitor.vue'
 import AccessControl from '../views/AccessControl.vue'
+import RegisterHistory from '../views/RegisterHistory.vue'
 
 const routes = [
     {
@@ -44,7 +45,16 @@ const routes = [
     //         title: '门禁管理',
     //         icon: 'Lock'
     //     }
-    // }
+    // },
+    {
+        path: '/register-history',
+        name: 'RegisterHistory',
+        component: RegisterHistory,
+        meta: {
+            title: '录入历史',
+            icon: 'Timer'
+        }
+    }
 ]
 
 const router = createRouter({

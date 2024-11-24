@@ -63,4 +63,45 @@ backend/models/.deepface/
 *.pt
 *.onnx
 *.dat
-*.zip 
+*.zip
+
+# Python 额外忽略
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.conda/
+condaenv*/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Vue/前端额外忽略
+.nuxt
+.nitro
+.output
+.env
+coverage
+*.local
+.vite-ssg-dist
+.vite-ssg-temp
+components.d.ts
+
+# 数据库
+*.sqlite
+*.sqlite3
+*.db
+
+# 媒体文件（如果需要忽略）
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.avi
+*.mov
+*.webp
+
+# 但保留目录结构
+!.gitkeep 
